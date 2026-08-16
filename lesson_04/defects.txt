@@ -1,0 +1,32 @@
+Defect Report
+
+ID: 1
+Title: Метод capitalize() изменяет регистр остальных символов, а не только первой буквы
+Severity: Medium
+Priority: Medium
+Environment: Python 3.11, pytest 7.4
+
+Description:
+    В классе StringUtils метод capitalize() реализован через встроенный метод str.capitalize().
+    Встроенный метод str.capitalize() делает первую букву заглавной, а все остальные буквы переводит в нижний регистр.
+    Документация метода StringUtils.capitalize() гласит:
+    «Принимает на вход текст, делает первую букву заглавной и возвращает этот же текст».
+    Из этого следует, что остальные символы должны оставаться без изменений.
+
+Steps to reproduce:
+    1. Создать экземпляр класса StringUtils.
+    2. Вызвать string_utils.capitalize("hELLO").
+    3. Вызвать string_utils.capitalize("SkyPro").
+
+Expected result:
+    "HELLO"
+    "SkyPro"
+
+Actual result:
+    "Hello"
+    "Skypro"
+
+Test case:
+    test_string_utils.py::test_capitalize_preserves_rest_of_string
+
+Status: Open
