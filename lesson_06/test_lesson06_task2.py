@@ -1,17 +1,10 @@
 from selenium import webdriver
 
 
-# ═══════════════════════════════════════════════════════════════════
-# ВСТАВЬТЕ СВОИ ДАННЫЕ ЗДЕСЬ:
-# Получите cookie из DevTools браузера (F12 → Application → Cookies)
-# после авторизации на https://gitflic.ru/
-# ═══════════════════════════════════════════════════════════════════
-
 USER1_COOKIES = [
     {"name": "session_id",
      "value": "ZDk2YzJkYzYtZDZkMC00NTk0LWFhOTAtODE5MjA0ODRmYzI1"},
-    # Добавьте другие cookie при необходимости, например:
-    # {"name": "_csrf", "value": "..."},
+   
 ]
 USER1_PROFILE_URL = "https://gitflic.ru/user/newuser123"
 
