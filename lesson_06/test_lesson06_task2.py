@@ -1,8 +1,10 @@
 from selenium import webdriver
 
+
 USER1_COOKIES = [
     {"name": "session_id",
      "value": "ZDk2YzJkYzYtZDZkMC00NTk0LWFhOTAtODE5MjA0ODRmYzI1"},
+   
 ]
 USER1_PROFILE_URL = "https://gitflic.ru/user/newuser123"
 
