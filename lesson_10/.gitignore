@@ -1,0 +1,16 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Allure reports (не пушим результаты и сгенерированные отчёты)
+allure-results/
+allure-report/
+
+# IDE
+.vscode/
+.idea/
+
+# Environments
+.env
+.venv
