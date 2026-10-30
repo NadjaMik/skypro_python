@@ -6,7 +6,6 @@ from collections.abc import Iterator
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 
 from tests.api.conftest import LOGIN, PASSWORD
@@ -41,28 +40,7 @@ def logged_in_driver(driver: WebDriver) -> Iterator[WebDriver]:
     login_page.open_login()
     login_page.login(LOGIN, PASSWORD)
 
-    # Даём приложению обработать авторизацию.
-    login_page.wait_for_timeout(2000)
-
-    # Если рабочее пространство не отобразилось,
-    # перезагружаем страницу и повторяем инициализацию приложения.
-    if not login_page.get_text(login_page.root).strip():
-        driver.refresh()
-
-        if login_page.count((By.CSS_SELECTOR, "script[src*='/js/app.js']")) == 0:
-            driver.execute_script(
-                """
-                if (typeof window.onLoad === "function") {
-                    window.onLoad();
-                } else {
-                    throw new Error(
-                        "Не найдена функция инициализации приложения"
-                    );
-                }
-                """
-            )
-
-    # Проверяем, что рабочее пространство загрузилось.
+    # Ждём конкретный признак успешной авторизации вместо фиксированной паузы.
     login_page.wait_text(login_page.root, "Мои задачи", timeout=20)
 
     yield driver

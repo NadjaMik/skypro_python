@@ -19,16 +19,27 @@ class TestProjects:
     ) -> None:
         title = unique_title("TC-03")
 
-        with allure.step("Создать проект с уникальным названием"):
-             project = api_client.create_project(title)
+        project: Dict[str, Any] = {}
 
-        with allure.step("Проверить, что API вернул id"):
-             assert project.get("id"), "В ответе API отсутствует id проекта"
+        try:
+            with allure.step("Создать проект с уникальным названием"):
+                project = api_client.create_project(title)
 
-        with allure.step("Получить созданный проект и проверить название"):
-             fetched_project = api_client.get_project(project["id"])
-             assert fetched_project["id"] == project["id"]
-             assert fetched_project["title"] == title
+            with allure.step("Проверить, что API вернул id"):
+                assert project.get("id"), "В ответе API отсутствует id проекта"
+
+            with allure.step("Получить созданный проект и проверить название"):
+                fetched_project = api_client.get_project(project["id"])
+                assert fetched_project["id"] == project["id"]
+                assert fetched_project["title"] == title
+        finally:
+            # Удаляем созданную тестом сущность даже при падении проверки.
+            project_id = project.get("id")
+            if project_id:
+                with allure.step(f"Cleanup: удалить проект {project_id}"):
+                    response = api_client.raw("DELETE", f"/projects/{project_id}")
+                    if response.status_code not in (200, 202, 204, 404):
+                        response.raise_for_status()
 
 
 

@@ -1,5 +1,4 @@
 """Базовый класс страниц (Page Object)."""
-import time
 from typing import Callable
 
 from selenium.common.exceptions import (
@@ -196,5 +195,3 @@ class BasePage:
     def count(self, locator: Locator) -> int:
         return len(self.driver.find_elements(*locator))
 
-    def wait_for_timeout(self, milliseconds: int) -> None:
-        time.sleep(milliseconds / 1000)

@@ -24,8 +24,8 @@ class TestLogin:
         with allure.step("Ввести валидные данные и отправить форму"):
             login_page.login(LOGIN, PASSWORD)
 
-        with allure.step("Дождаться обработки авторизации"):
-            login_page.wait_for_timeout(2000)
+        with allure.step("Дождаться появления рабочего пространства"):
+            login_page.wait_text(login_page.root, "Мои задачи", timeout=20)
 
         with allure.step("Восстановить интерфейс после перехода"):
             if not login_page.get_text(login_page.root).strip():
